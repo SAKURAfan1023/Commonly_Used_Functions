@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+
+  <style>
+    div.box {
+      margin: 100px auto;
+      height: 100%;
+      width: 300px;
+    }
+
+    .itemTable {
+      border: 1px solid black;
+      border-collapse: collapse;
+    }
+
+    /* .itemTable .littleCheckBox:checkbox {
+      height: 50px;
+      width: 50px;
+    } */
+
+    .itemTable tr td {
+      border: 1px solid black;
+      height: 100px;
+      width: 100px;
+      text-align: center;
+    }
+
+    .itemTable tr th {
+      border: 1px solid black;
+      font-weight: bold;
+    }
+  </style>
+
+</head>
+
+<body>
+
+  <!-- -----------创建大盒子填装表格用------------ -->
+  <div class="box">
+    <!-- -------------创建表格--------------- -->
+    <table class="itemTable">
+      <tr>
+        <th><input type="checkbox" name="" id="" class="checkAllBox">全选</th>
+        <th>商品</th>
+      <tr>
+        <td><input type="checkbox" name="" id="" class="littleCheckBox"></td>
+        <td>苹果</td>
+      </tr>
+      <tr>
+        <td><input type="checkbox" name="" id="" class="littleCheckBox"></td>
+        <td>香蕉</td>
+      </tr>
+      <tr>
+        <td><input type="checkbox" name="" id="" class="littleCheckBox"></td>
+        <td>梨</td>
+      </tr>
+    </table>
+  </div>
+
+  <script>
+
+    //------抓取相关对象元素
+
+    const checkAllBox = document.querySelector('.checkAllBox')
+    const checkBoxs = document.querySelectorAll('.littleCheckBox')
+
+    //-----用于实现全选checkbox的功能---------------
+
+    checkAllBox.addEventListener('click', function () {
+      for (let i = 0; i < checkBoxs.length; i++) {
+        console.log(checkBoxs.length);
+        console.log(checkAllBox.checked);
+        console.log(checkBoxs[i]);
+        checkBoxs[i].checked = checkAllBox.checked
+      }
+    })
+
+    //-----用于点击小checkbox时判断全选checkbox的状态------
+
+    for (let i = 0; i < checkBoxs.length; i++) {
+      checkBoxs[i].addEventListener('click', function () {
+        if (document.querySelectorAll('.littleCheckBox:checked').length === checkBoxs.length) {
+          checkAllBox.checked = checkBoxs[i].checked
+        }
+        else {
+          checkAllBox.checked = false
+        }
+      })
+    }
+
+    //-----------Finish------------------------
+
+  </script>
+
+</body>
+
+</html>
