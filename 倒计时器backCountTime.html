@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+
+  <div>
+    <span class="box">今天的时间是</span>
+    <div class="countTime">倒计时:</div>
+  </div>
+
+  <script>
+
+    //采集对象
+
+    const time = document.querySelector('.box')
+    const countTime = document.querySelector('.countTime')
+
+    //调用函数
+
+    backCountTime()
+    autoBackCountTime()
+
+    //第一个函数，用于自动倒计时
+
+    function autoBackCountTime() {
+      let date = new Date()
+      time.innerHTML = `今天的时间是:${date.toLocaleString()}`
+      setInterval(() => {
+        //时间对象实例化
+        date = new Date()
+        time.innerHTML = `今天的时间是:${date.toLocaleString()}`
+        backCountTime()
+      }, 100);
+    }
+
+    //第二个函数，用于计算倒计时
+
+    function backCountTime() {
+      let totalTime = + new Date('2025-3-13') - (+new Date())
+      // console.log(totalTime);
+      let seconds = Math.floor(totalTime / 1000 % 60)
+      let minutes = Math.floor(totalTime / 1000 / 60 % 60)
+      let hours = Math.floor(totalTime / 1000 / 60 / 60)
+      seconds = seconds < 10 ? '0' + seconds : seconds
+      minutes = minutes < 10 ? '0' + minutes : minutes
+      hours = hours < 10 ? '0' + hours : hours
+      countTime.innerHTML = `倒计时${hours}:${minutes}:${seconds}`
+    }
+
+  </script>
+</body>
+
+</html>

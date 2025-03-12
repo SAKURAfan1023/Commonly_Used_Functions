@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+
+  <div></div>
+
+  <script>
+    //固定时间格式
+    let totalTime = + new Date()
+    let seconds = Math.floor(totalTime / 1000 % 60)
+    let minutes = Math.floor(totalTime / 1000 / 60 % 60)
+    let hours = Math.floor(totalTime / 1000 / 60 / 60)
+    seconds = seconds < 10 ? '0' + seconds : seconds
+    minutes = minutes < 10 ? '0' + minutes : minutes
+    hours = hours < 10 ? '0' + hours : hours
+    console.log(`${hours}:${minutes}:${seconds}`)
+
+    //获取本地时间
+    function getMyDate() {
+      setInterval(function () {
+        const myDate = new Date()
+        div.innerHTML = myDate.toLocaleString()
+      }, 100)
+      const myDate = new Date()
+      console.log(myDate.toLocaleDateString);
+    }
+  </script>
+
+</body>
+
+</html>
