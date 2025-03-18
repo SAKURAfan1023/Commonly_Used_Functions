@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    .box {
+      width: 300px;
+      height: 300px;
+      margin: 300px auto;
+      background-color: pink;
+      box-sizing: border-box;
+      position: relative;
+    }
+
+    .layer {
+      width: 50px;
+      height: 50px;
+      position: absolute;
+      background-color: black;
+      box-sizing: border-box;
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- //结构 -->
+  <div class="box">
+    <div class="layer"></div>
+  </div>
+
+
+  <script>
+
+    const box = document.querySelector('.box')
+    const layer = document.querySelector('.layer')
+
+    box.addEventListener('mousemove', function (e) {
+
+      //进入模块内使遮罩显现
+
+      layer.style.display = 'block'
+      e.stopPropagation()
+
+      //限制遮罩移动范围不会超出父类盒子
+
+      if (e.pageX - box.getClientRects()[0].left - document.documentElement.scrollLeft > 25 &&
+        e.pageX - box.getClientRects()[0].left - document.documentElement.scrollLeft < 275 &&
+        e.pageY - box.getClientRects()[0].top - document.documentElement.scrollTop > 25 &&
+        e.pageY - box.getClientRects()[0].top - document.documentElement.scrollTop < 275
+      ) {
+
+        //判断出来后，移动盒子，让其跟随鼠标移动
+
+        layer.style.left = e.pageX - box.getClientRects()[0].left - 25 - document.documentElement.scrollLeft + 'px'
+        layer.style.top = e.pageY - box.getClientRects()[0].top - 25 - document.documentElement.scrollTop + 'px'
+      }
+
+      //超出父类盒子时，遮罩消失的判断
+
+      if (e.pageX - box.getClientRects()[0].left - document.documentElement.scrollLeft < 0 ||
+        e.pageY - box.getClientRects()[0].top - document.documentElement.scrollTop < 0 ||
+        e.pageX - box.getClientRects()[0].left - document.documentElement.scrollLeft > 300 ||
+        e.pageY - box.getClientRects()[0].top - document.documentElement.scrollTop > 300) {
+        layer.style.display = 'none'
+      }
+    })
+
+  </script>
+</body>
+
+</html>
