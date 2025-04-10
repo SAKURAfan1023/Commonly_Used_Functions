@@ -12,20 +12,23 @@
 //npm install css-minimizer-webpack-plugin --save-dev（压缩打包的css文件）
 //npm i webpack-dev-server --save-dev(热更新服务)
 //npm install --save-dev html-loader(打包html内的img标签图片)
-//npm i cross-env --save-dev(打包模式应用，针对不同环境采用不同的打包方式)
+//npm i cross-env --save-dev(打包模式应用，针对不同环境采用不同的打包方式) process.env.NODE_ENV==='production'
 
 
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const CssMinimizerPlugin = require('css-minimizer-webpack-plugin');
-
-module.exports = {
+const webpack = require('webpack')
+const config = {
   //模式设置为开发环境,打包模式
   mode: 'development',
   //设置文件入口
   //-----------此处需输入入口
-  entry: '',
+  entry: {
+    '模块名1': '路径',
+    '模块名2': '路径',
+  },
   //设置文件出口
   output: {
     path: path.resolve(__dirname, 'dist'),
@@ -35,19 +38,39 @@ module.exports = {
   },
 
   //添加html补丁
-  plugins: [new HtmlWebpackPlugin({
-    //------------以哪个html文件为模板输入
-    template: path.resolve(__dirname, ''),
-    //------------输出的出口以及文件名
-    filename: path.resolve(__dirname, ''),
-    //更改title
-    title: 'Development',
-  }),
-  //添加css补丁
-  new MiniCssExtractPlugin({
-    //-------------此处为输出的出口以及文件名，css需要在js文件中import引入,此处的filename需要填写相对路径，也就是dist为起点
-    filename: ''
-  })],
+  plugins: [
+    //添加第一个html插件
+    new HtmlWebpackPlugin({
+      //------------以哪个html文件为模板输入
+      template: path.resolve(__dirname, ''),
+      //------------输出的出口以及文件名
+      filename: path.resolve(__dirname, ''),
+      //更改title
+      title: 'Development',
+      chunks: ['模块名']
+    }),
+    //添加第二个html插件
+    new HtmlWebpackPlugin({
+      //------------以哪个html文件为模板输入
+      template: path.resolve(__dirname, ''),
+      //------------输出的出口以及文件名
+      filename: path.resolve(__dirname, ''),
+      //更改title
+      title: 'Development',
+      chunks: ['模块名']
+    }),
+
+    //添加css补丁
+    new MiniCssExtractPlugin({
+      //-------------此处为输出的出口以及文件名，css需要在js文件中import引入,此处的filename需要填写相对路径，也就是dist为起点
+      filename: ''
+    }),
+
+    //添加definePlugin插件
+    new webpack.DefinePlugin({
+      'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV),
+    })
+  ],
 
   //添加加载器
   module: {
@@ -120,4 +143,18 @@ module.exports = {
       new CssMinimizerPlugin(),
     ],
   },
+
+  //定义别名，省略绝对定位的语法长度
+  resolve: {
+    alias: {
+      '@': path.resolve(__dirname, 'src')
+    }
+  }
 };
+
+//当开发环境处于development时，启用详细的js报错
+if (process.env.NODE_ENV === 'development') {
+  config.devtool = 'inline-source-map'
+}
+
+module.exports = config
