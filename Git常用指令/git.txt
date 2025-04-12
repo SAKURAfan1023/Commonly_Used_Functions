@@ -1,13 +1,40 @@
 在gitBash控制台内使用
 
-1.git -v
+1.
+git -v
 //查看git版本
 
-2.git init
+2.
+git init
 //初始化仓库
 
-3.git add 文件名  //暂存指定的文件
-git add.         //暂存所有改动的文件 
+3.
+git add 文件名  //暂存指定的文件
+git add .         //暂存所有改动的文件 
+git ls-files       //查看暂存区文件
 
-4.git commit -m"在此处填写注释"  
+4.
+git commit -m"在此处填写注释"  
 //提交并保存，产生版本快照
+
+5.
+git status -s
+//查看文件状态 U未跟踪 A新添加 ‘’未修改 M已修改
+
+6.
+git restore 目标文件
+//恢复到暂存区状态，为完全覆盖，谨慎使用
+git rm -f --cached -r 目标文件
+//将暂存区中的目标文件删除
+
+7.
+git log --oneline
+//查看git所有commit记录，提交记录
+git reflog --oneline 
+//查看版本回退之后，未来的提交记录
+
+8.
+git reset --soft 版本号
+git reset --hard 版本号
+//版本回退，结合git log获取版本号来进行完全回退
+//soft尽可能保存无关文件，撤销commit，hard会严格执行回退
