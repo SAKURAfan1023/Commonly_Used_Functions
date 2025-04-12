@@ -1,0 +1,5 @@
+1.git config --global user.name "此处填写用户名"
+//设置git账户用户名
+
+2.git config --global user.email "此处填写邮箱"
+//设置git账户邮箱

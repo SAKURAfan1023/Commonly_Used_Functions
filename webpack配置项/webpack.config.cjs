@@ -47,7 +47,8 @@ const config = {
       filename: path.resolve(__dirname, ''),
       //更改title
       title: 'Development',
-      chunks: ['模块名']
+      chunks: ['模块名'], //模块名需要一致，否走无法导入对应的js
+      UseCdn: process.env.NODE_ENV === 'production' //useCdn用来判断是否使用Cdn，如果生产环境为production则适用，需要和html里import，link配套使用
     }),
     //添加第二个html插件
     new HtmlWebpackPlugin({
@@ -57,7 +58,8 @@ const config = {
       filename: path.resolve(__dirname, ''),
       //更改title
       title: 'Development',
-      chunks: ['模块名']
+      chunks: ['模块名'],
+      UseCdn: process.env.NODE_ENV === 'production'
     }),
 
     //添加css补丁
@@ -135,13 +137,29 @@ const config = {
     ],
   },
 
-  //压缩css文件大小
   optimization: {
+    //压缩css文件大小
     minimizer: [
       // 在 webpack@5 中，你可以使用 `...` 语法来扩展现有的 minimizer（即 `terser-webpack-plugin`），将下一行取消注释
       `...`,
       new CssMinimizerPlugin(),
     ],
+
+    //代码分割
+    splitChunks: {
+      chunks: 'all',    //所有模块动态非动态移入的都分割分析
+      cacheGroups: {      //分隔组
+        common: {     //抽取公共模块
+          minSize: 0,     //抽取chunk最小字节
+          minChunks: 2,      //最小引用数
+          reuseExistingChunk: true, //当前chunk包含已从bundle中拆分出的模块，则被重用
+          name(module, chunks, cacheGroupKey) {
+            const allChunksNames = chunks.map((item) => item.name).join('~') //模块名1~2
+            return `./js/${allChunksNames}` //输出到dist目录下位置
+          }
+        },
+      },
+    },
   },
 
   //定义别名，省略绝对定位的语法长度
@@ -152,9 +170,18 @@ const config = {
   }
 };
 
-//当开发环境处于development时，启用详细的js报错
+//当开发环境处于development时，启用详细的js报错，sourcemap
 if (process.env.NODE_ENV === 'development') {
   config.devtool = 'inline-source-map'
 }
 
+if (process.env.NODE_ENV === 'production') {
+  //外部扩展（防止import被webpack打包）
+  config.externals = {
+    'key': 'value'
+    //'key'为import from 语句后面的字符串，即为引用的地址
+    //'value'为留在原地的全局变量，最好和cdn在全局暴露的变量一致
+    //例如'axios':'axios'
+  }
+}
 module.exports = config
