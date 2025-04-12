@@ -3,5 +3,3 @@
 
 2.git config --global user.email "此处填写邮箱"
 //设置git账户邮箱
-
-Yean,I think so
