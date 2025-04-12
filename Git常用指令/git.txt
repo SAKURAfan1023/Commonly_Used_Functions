@@ -38,3 +38,9 @@ git reset --soft 版本号
 git reset --hard 版本号
 //版本回退，结合git log获取版本号来进行完全回退
 //soft尽可能保存无关文件，撤销commit，hard会严格执行回退
+
+9.
+git branch 分支名
+//创建新的分支
+git checkout 分支名
+//切换分支，也就是改变head的指向
