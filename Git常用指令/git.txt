@@ -44,5 +44,21 @@ git branch 分支名
 //创建新的分支
 git checkout 分支名
 //切换分支，也就是改变head的指向
-git merge login-bug
+git checkout -b 分支名
+//创建并切换分支
+git merge 想要融合的分支名
 //合并其他分支
+git branch -d 想要删除的分支名
+//删除其他分支
+
+10.
+git remote add 远程仓库别名 远程仓库地址
+//添加远程仓库
+//eg: git remote add origin http//:...
+git remote remove 仓库别名
+//移除仓库，即可再次添加达到更换仓库的目的
+
+11.
+git push -u 远程仓库别名 本地和远程分支名
+//推送记录至远程仓库
+//eg: git push -u origin main
