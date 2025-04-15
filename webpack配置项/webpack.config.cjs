@@ -130,7 +130,7 @@ const config = {
                 }
               ]
             },
-            esModule: false
+            esModule: false,
           }
         }
       },

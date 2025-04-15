@@ -26,3 +26,37 @@
     样式
   } */
 }
+
+
+
+
+/* PC */
+@media (max-width: 1100px) {
+  /* 选择器 {
+    样式
+  } */
+}
+
+@media (min-width: 1100px) {
+  /* 选择器 {
+    样式
+  } */
+}
+
+@media (min-width: 1367px) {
+  /* 选择器 {
+    样式
+  } */
+}
+
+@media (min-width: 1700px) {
+  /* 选择器 {
+    样式
+  } */
+}
+
+@media (min-width: 2200px) {
+  /* 选择器 {
+    样式
+  } */
+}
