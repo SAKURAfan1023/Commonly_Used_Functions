@@ -7,13 +7,14 @@
 //npm i webpack webpack-cli --save-dev（安装webpack）
 // npm install--save - dev html - webpack - plugin（html打包插件）
 //npm i css-loader style-loader --save-dev（css打包加载器）
-// npm install less less - loader--save - dev（less打包加载器）
+// npm install less less - loader --save - dev（less打包加载器）
 //npm install --save-dev mini-css-extract-plugin（单独打包css文件，不会放入js中）
 //npm install css-minimizer-webpack-plugin --save-dev（压缩打包的css文件）
 //npm i webpack-dev-server --save-dev(热更新服务)
 //npm install --save-dev html-loader(打包html内的img标签图片)
 //npm i cross-env --save-dev(打包模式应用，针对不同环境采用不同的打包方式) process.env.NODE_ENV==='production'
 
+//npm i webpack webpack-cli html-webpack-plugin css-loader style-loader less less-loader mini-css-extract-plugin css-minimizer-webpack-plugin webpack-dev-server html-loader --save-dev
 
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
