@@ -1,1 +1,2 @@
 npm i express@4.17.1 //安装express4.17.1版本
+npm i cors //安装cors支持跨域

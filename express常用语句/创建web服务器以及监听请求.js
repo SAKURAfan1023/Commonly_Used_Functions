@@ -32,3 +32,40 @@ app.get('/user/:id/:username', (req, res) => {
   console.log(req.params);
   res.send(req.params)
 })
+
+
+
+//-----------------------------------------example
+import express from 'express'
+import cors from 'cors'
+const apps = express()
+
+apps.use(express.json())
+apps.use(express.urlencoded())
+apps.use(cors())
+
+apps.get('/user', (req, res) => {
+  const query = req.query || ' '
+  res.send({
+    status: 0,
+    message: 'GET 请求成功',
+    query
+  })
+})
+
+apps.post('/book', (req, res) => {
+  const body = req.body || ' '
+  res.send({
+    status: 0,
+    message: 'POST 请求成功',
+    body
+  })
+})
+
+apps.use((err, req, res, next) => {
+  res.send('err!' + err.message)
+})
+
+apps.listen(80, () => {
+  console.log('server on http://127.0.0.1:80');
+})
