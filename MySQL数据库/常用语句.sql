@@ -15,7 +15,27 @@
 -- //------------------------------------------------------语句
 -- sql语法对大小写不敏感，但是名称对大小写敏感
 
+
+//-------------------主句
 select * from 表名称       -- 用于查询表名称所选表内所有列，*表示所有列
 select 列名称 from 表名称    -- 从所选表内查询对应的列,多个列可以用逗号分隔
 
 insert into 表名称 (列名称1,列名称2) value ('值','值') -- 列与值应当一一对应
+
+update 表名称 set 列名称1=新值 where 列名称2=值    -- update 更新对应表，set设置对应列名称的新值来替换where哪里的旧值
+
+delete from 表名称 where 列名称=值      --删除对应行，一般where后面填写唯一标识符例如id
+
+
+
+//-------------------从句
+where 列-运算符-值      -- where为子句，可以限定条件，能加在任何主句的后面缩小范围 id>4 查询id大于4的值
+  and 和 or --在where子句中加入and和or可以更方便的限定条件
+
+order by 列名称1,列名称2 --按什么形式来排序,可以添加逗号来进行更小范围内的排序 order by status, username
+  ASC --升序排列，默认可以不写
+  DESC --降序排列
+
+count(*) --用于统计数据条数 搭配select使用 select count(*) from users
+  
+AS 列名 --给列起别名 select password as psw from users
