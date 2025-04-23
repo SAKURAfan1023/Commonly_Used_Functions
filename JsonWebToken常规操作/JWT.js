@@ -16,5 +16,5 @@ jwt.sign({ username: '**' }, secretKey, { expiresIn: '30s' })
 //解密token还原成json对象，是一个中间件
 //expressJWT({ secret: secretKey })就是用来解析的中间件
 //.unless({path:[/^\/api\//]})用来限定哪些接口不需要访问的权限
-//解析出来后就可以挂载在req.auth上了
-app.use(expressjwt({ secret: secretKey, algorithms: ['HS256'] }).unless({ path: [/^\/api\//] }))
+//解析出来后就自动挂载在req.auth上了
+app.use(expressjwt({ secret: secretKey, algorithms: ['HS256'] }).unless({ path: [/^\/api\//] }))//这是一个中间件

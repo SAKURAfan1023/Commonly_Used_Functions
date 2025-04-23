@@ -1,5 +1,5 @@
 //先安装mysql模块   npm install mysql2
-const mysql = require('mysql')
+const mysql = require('mysql2')
 const db = mysql.createPool({           //建立连接关系
   host: '127.0.0.1',   //数据库的IP地址
   user: 'root', //登录数据库的账户
@@ -35,5 +35,4 @@ const updateStr = 'update users set username=? where id=?'
 db.query(updateStr, [user2.username, user2.id], (err, result) => {
   if (err) console.log(err.message);
   console.log('修改成功');
-
 })
