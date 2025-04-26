@@ -1,8 +1,8 @@
 // 1. 定义观察目标和配置
 const target = document.querySelector('.lazy-image');
 const options = {
-  root: null,
-  rootMargin: '0px',
+  root: null, //以哪个目标为基准观测
+  rootMargin: '0px', //拓宽所选root
   threshold: 0.1 // 当元素 10% 可见时触发
 };
 
