@@ -27,14 +27,14 @@ const config = {
   //设置文件入口
   //-----------此处需输入入口
   entry: {
-    '模块名1': '路径',
-    '模块名2': '路径',
+    '模块名1': '路径.js',
+    '模块名2': '路径.js',
   },
   //设置文件出口
   output: {
     path: path.resolve(__dirname, 'dist'),
     //-----------此处需输入出口及文件名
-    filename: '',
+    filename: '?',
     clean: true
   },
 
@@ -43,9 +43,9 @@ const config = {
     //添加第一个html插件
     new HtmlWebpackPlugin({
       //------------以哪个html文件为模板输入
-      template: path.resolve(__dirname, ''),
+      template: path.resolve(__dirname, '?.html'),
       //------------输出的出口以及文件名
-      filename: path.resolve(__dirname, ''),
+      filename: path.resolve(__dirname, '?.html'),
       //更改title
       title: 'Development',
       chunks: ['模块名'], //模块名需要一致，否走无法导入对应的js
@@ -54,9 +54,9 @@ const config = {
     //添加第二个html插件
     new HtmlWebpackPlugin({
       //------------以哪个html文件为模板输入
-      template: path.resolve(__dirname, ''),
+      template: path.resolve(__dirname, '?.html'),
       //------------输出的出口以及文件名
-      filename: path.resolve(__dirname, ''),
+      filename: path.resolve(__dirname, '?.html'),
       //更改title
       title: 'Development',
       chunks: ['模块名'],
@@ -66,7 +66,7 @@ const config = {
     //添加css补丁
     new MiniCssExtractPlugin({
       //-------------此处为输出的出口以及文件名，css需要在js文件中import引入,此处的filename需要填写相对路径，也就是dist为起点
-      filename: ''
+      filename: '?'
     }),
 
     //添加definePlugin插件
