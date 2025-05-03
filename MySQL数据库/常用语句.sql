@@ -22,7 +22,7 @@ select 列名称 from 表名称    -- 从所选表内查询对应的列,多个�
 
 insert into 表名称 (列名称1,列名称2) value ('值','值') -- 列与值应当一一对应
 
-update 表名称 set 列名称1=新值 where 列名称2=值    -- update 更新对应表，set设置对应列名称的新值来替换where哪里的旧值
+update 表名称 set 列名称1=新值 where id=值    -- update 更新对应表，set设置对应列名称的新值来替换where哪里的旧值,where一般应当为唯一标识符
 
 delete from 表名称 where 列名称=值      --删除对应行，一般where后面填写唯一标识符例如id
 
