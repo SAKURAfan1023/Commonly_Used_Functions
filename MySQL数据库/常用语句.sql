@@ -39,3 +39,9 @@ order by 列名称1,列名称2 --按什么形式来排序,可以添加逗号来�
 count(*) --用于统计数据条数 搭配select使用 select count(*) from users
   
 AS 列名 --给列起别名 select password as psw from users
+
+
+
+
+-- for example 
+select 列名称 from 数据库 where id<>? and (name=?...)
