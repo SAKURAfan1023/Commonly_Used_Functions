@@ -1,0 +1,26 @@
+条件渲染v-if
+为true真值时才渲染，否则从DOM元素中删除
+可以搭配v-else和v-else-if
+
+<script type="module">
+  import { createApp } from 'vue'
+
+  createApp({
+    data() {
+      return {
+        awesome: true
+      }
+    },
+    methods: {
+      toggle() {
+        this.awesome = !this.awesome
+      }
+    }
+  }).mount('#app')
+</script>
+
+<div id="app">
+  <button @click="toggle">Toggle</button>
+  <h1 v-if="awesome">Vue is awesome!</h1>
+  <h1 v-else>Oh no 😢</h1>
+</div>
