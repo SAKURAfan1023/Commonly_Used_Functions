@@ -54,3 +54,50 @@
 <!-- 仅当 event.target 是元素本身时才会触发事件处理器 -->
 <!-- 例如：事件处理器不来自子元素 -->
 <div @click.self="doThat">...</div>
+
+<!-- 添加事件监听器时，使用 `capture` 捕获模式 -->
+<!-- 例如：指向内部元素的事件，在被内部元素处理前，先被外部处理 -->
+<div @click.capture="doThis">...</div>
+
+<!-- 点击事件最多被触发一次 -->
+<a @click.once="doThis"></a>
+
+<!-- 滚动事件的默认行为 (scrolling) 将立即发生而非等待 `onScroll` 完成 -->
+<!-- 以防其中包含 `event.preventDefault()` -->
+<div @scroll.passive="onScroll">...</div>
+
+
+<按键修饰符>
+  在监听键盘事件时，我们经常需要检查特定的按键。Vue 允许在 v-on 或 @ 监听按键事件时添加按键修饰符。
+  按键别名​
+  Vue 为一些常用的按键提供了别名：
+
+  .enter
+  .tab
+  .delete (捕获“Delete”和“Backspace”两个按键)
+  .esc
+  .space
+  .up
+  .down
+  .left
+  .right
+</按键修饰符>
+
+<系统按键修饰符​>
+  你可以使用以下系统按键修饰符来触发鼠标或键盘事件监听器，只有当按键被按下时才会触发。
+
+  .ctrl
+  .alt
+  .shift
+  .meta
+
+  .exact 修饰符​
+  .exact 修饰符允许精确控制触发事件所需的系统修饰符的组合。 @click.meta,exact 表示只有且仅按下windows键才能够触发
+</系统按键修饰符​>
+
+<鼠标按键修饰符​>
+  .left
+  .right
+  .middle
+  这些修饰符将处理程序限定为由特定鼠标按键触发的事件。
+</鼠标按键修饰符​>

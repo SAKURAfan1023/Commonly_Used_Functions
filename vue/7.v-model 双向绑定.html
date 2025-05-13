@@ -1,0 +1,19 @@
+表单绑定 v-model
+可以同步提取input、多选框、单选框、下拉框之类的输入类型
+
+<script type="module">
+  import { createApp } from 'vue'
+
+  createApp({
+    data() {
+      return {
+        text: ''
+      }
+    }
+  }).mount('#app')
+</script>
+
+<div id="app">
+  <input v-model="text" placeholder="Type here">
+  <p>{{ text }}</p>
+</div>
