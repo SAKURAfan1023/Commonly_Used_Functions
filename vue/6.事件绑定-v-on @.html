@@ -1,0 +1,56 @@
+<script type="module">
+  import { createApp } from 'vue'
+
+  createApp({
+    //data部分返回文本内容以及属性值
+    data() {
+      return {
+        count: 0
+      }
+    },
+    //methods部分填写函数，强调是methods
+    methods: {
+      increment() {
+        this.count++
+      }
+    }
+
+  }).mount('#app')
+</script>
+
+<div id="app">
+  <!-- 使此按钮生效 -->
+  <button v-on:click="increment">Count is: {{ count }}</button>
+</div>
+
+
+方法事件处理器：此处绑定click事件监听，触发method函数increment，简写可以为@click
+内联事件处理器：直接在@click=“此处编写”例如count++，可以调用函数引用参数
+
+
+访问原生DOM参数可以用$event或者箭头函数
+<button @click="warn('Form cannot be submitted yet.', $event)">
+  Submit
+</button>
+
+<!-- 使用内联箭头函数 -->
+<button @click="(event) => warn('Form cannot be submitted yet.', event)">
+  Submit
+</button>
+
+事件修饰符，e.preventDefault和e.stopPropagation的简写方式
+<!-- 单击事件将停止传递 -->
+<a @click.stop="doThis"></a>
+
+<!-- 提交事件将不再重新加载页面 -->
+<form @submit.prevent="onSubmit"></form>
+
+<!-- 修饰语可以使用链式书写 -->
+<a @click.stop.prevent="doThat"></a>
+
+<!-- 也可以只有修饰符 -->
+<form @submit.prevent></form>
+
+<!-- 仅当 event.target 是元素本身时才会触发事件处理器 -->
+<!-- 例如：事件处理器不来自子元素 -->
+<div @click.self="doThat">...</div>
