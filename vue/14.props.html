@@ -1,0 +1,31 @@
+子组件可以通过 props 从父组件接受动态数据。首先，需要声明它所接受的 props：
+
+<script>// 在子组件中
+  export default {
+    props: {
+      msg: String //相当于attribute
+    }
+  }
+</script>
+
+一旦声明，msg prop 就会暴露在 this 上，并可以在子组件的模板中使用。
+
+<script type="module">
+  import { createApp } from 'vue'
+  import ChildComp from './ChildComp.js'
+
+  createApp({
+    components: {
+      ChildComp
+    },
+    data() {
+      return {
+        greeting: 'Hello from parent'
+      }
+    }
+  }).mount('#app')
+</script>
+
+<div id="app">
+  <child-comp :msg="greeting"></child-comp>
+</div>
