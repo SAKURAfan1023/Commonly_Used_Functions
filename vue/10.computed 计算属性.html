@@ -1,0 +1,66 @@
+我们可以使用 computed 选项声明一个响应式的属性，它的值由其他属性计算而来：
+<script>
+  createApp({
+    // ...
+    computed: {
+      filteredTodos() {
+        // 根据 `this.hideCompleted` 返回过滤后的 todo 项目
+      }
+    }
+  })
+</script>
+
+计算属性会自动跟踪其计算中所使用的到的其他响应式状态，并将它们收集为自己的依赖。计算结果会被缓存，并只有在其依赖发生改变时才会被自动更新。
+
+完整案例
+<script type="module">
+  import { createApp } from 'vue'
+
+  let id = 0
+
+  createApp({
+    data() {
+      return {
+        newTodo: '',
+        hideCompleted: false,
+        todos: [
+          { id: id++, text: 'Learn HTML', done: true },
+          { id: id++, text: 'Learn JavaScript', done: true },
+          { id: id++, text: 'Learn Vue', done: false }
+        ]
+      }
+    },
+    computed: {
+      filteredTodos() {
+        return this.hideCompleted ? this.todos.filter(item => item.done === false) : this.todos
+      }
+      // ...
+    },
+    methods: {
+      addTodo() {
+        this.todos.push({ id: id++, text: this.newTodo, done: false })
+        this.newTodo = ''
+      },
+      removeTodo(todo) {
+        this.todos = this.todos.filter((t) => t !== todo)
+      }
+    }
+  }).mount('#app')
+</script>
+
+<div id="app">
+  <form @submit.prevent="addTodo">
+    <input v-model="newTodo" required placeholder="new todo">
+    <button>Add Todo</button>
+  </form>
+  <ul>
+    <li v-for="todo in filteredTodos" :key="todo.id">
+      <input type="checkbox" v-model="todo.done">
+      <span :class="{ done: todo.done }">{{ todo.text }}</span>
+      <button @click="removeTodo(todo)">X</button>
+    </li>
+  </ul>
+  <button @click="hideCompleted = !hideCompleted">
+    {{ hideCompleted ? 'Show all' : 'Hide completed' }}
+  </button>
+</div>

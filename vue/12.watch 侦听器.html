@@ -1,0 +1,39 @@
+同method，watch是一个对象，能够侦听变量改变并接收新参数并回调
+
+完整示例：侦听ID变化抓取信息
+<script type="module">
+  import { createApp } from 'vue'
+
+  createApp({
+    data() {
+      return {
+        todoId: 1,
+        todoData: null
+      }
+    },
+    methods: {
+      async fetchData() {
+        this.todoData = null
+        const res = await fetch(
+          `https://jsonplaceholder.typicode.com/todos/${this.todoId}`
+        )
+        this.todoData = await res.json()
+      }
+    },
+    watch: {
+      todoId(newID) {
+        this.fetchData()
+      }
+    },
+    mounted() {
+      this.fetchData()
+    }
+  }).mount('#app')
+</script>
+
+<div id="app">
+  <p>Todo id: {{ todoId }}</p>
+  <button @click="todoId++" :disabled="!todoData">Fetch next todo</button>
+  <p v-if="!todoData">Loading...</p>
+  <pre v-else>{{ todoData }}</pre>
+</div>
