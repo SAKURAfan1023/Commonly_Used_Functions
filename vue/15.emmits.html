@@ -1,0 +1,50 @@
+除了接收 props，子组件还可以向父组件触发事件：
+
+<script>
+  export default {
+    // 声明触发的事件
+    emits: ['response'],
+    created() {
+      // 带参数触发
+      this.$emit('response', 'hello from child')
+    }
+  }
+</script>
+
+this.$emit() 的第一个参数是事件的名称。其他所有参数都将传递给事件监听器。
+父组件可以使用 v-on 监听子组件触发的事件——这里的处理函数接收了子组件触发事件时的额外参数并将它赋值给了本地状态：
+
+<child-comp @response="(msg) => childMsg = msg"></child-comp>
+
+完整示例：
+<script type="module">
+  import { createApp } from 'vue'
+  import ChildComp from './ChildComp.js'
+
+  createApp({
+    components: {
+      ChildComp
+    },
+    data() {
+      return {
+        childMsg: 'No child msg yet'
+      }
+    }
+  }).mount('#app')
+</script>
+
+<div id="app">
+  <child-comp @response="(msg)=>childMsg=msg"></child-comp>
+  <p>{{ childMsg }}</p>
+</div>
+
+子组件：
+export default {
+emits: ['response'],
+created() {
+this.$emit('response', 'hello from child')
+},
+template: `
+<h2>Child component</h2>
+`
+}
