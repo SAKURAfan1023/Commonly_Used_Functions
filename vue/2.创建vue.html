@@ -1,0 +1,28 @@
+// npm create vue @latest 用于创建vue单页项目
+// $ cd < your - project - name>
+  // $ npm install
+  // $ npm run dev
+
+  //vue项目以外引用
+  <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+
+
+  第一种引入方式：
+
+  import { createApp } from 'https://unpkg.com/vue@3/dist/vue.esm-browser.js'
+
+  第二种引入方式：
+
+  <script type="importmap">
+  {
+    "imports": {
+    "vue": "https://unpkg.com/vue@3/dist/vue.esm-browser.js"
+    }
+  }
+</script>
+
+  import { createApp } from 'vue'
+
+  const app = createApp({
+  /* 根组件选项 */
+  })
