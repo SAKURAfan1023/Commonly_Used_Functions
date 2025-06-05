@@ -1,6 +1,23 @@
 表单绑定 v-model
 可以同步提取input、多选框、单选框、下拉框之类的输入类型
 
+<input type="checkbox" v-model="toggle" true-value="yes" false-value="no" />
+true-value 和 false-value 是 Vue 特有的 attributes，仅支持和 v-model 配套使用。这里 toggle 属性的值会在选中时被设为 'yes'，取消选择时设为 'no'。你同样可以通过 v-bind
+将其绑定为其他动态值：
+<input type="checkbox" v-model="toggle" :true-value="dynamicTrueValue" :false-value="dynamicFalseValue" />
+
+
+v-model还支持非字符串值的绑定，例如value="{number:123}"则绑定的是对象字面量值
+
+
+修饰符
+.lazy 用于每一次更新input的数据,发生在change之后，可以减轻负载压力
+.number 用户输入自动转为数字 number 修饰符会在输入框有 type="number" 时自动启用。
+.trim 自动去掉输入两端的空格
+
+
+example:
+
 <script type="module">
   import { createApp } from 'vue'
 
