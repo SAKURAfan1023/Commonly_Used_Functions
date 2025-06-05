@@ -1,6 +1,127 @@
 同method，watch是一个对象，能够侦听变量改变并接收新参数并回调
 可配置 immediate: true 立即执行，天生是异步操作无缓存，computed是同步操作有缓存
 
+watch 选项也支持把键设置成用 . 分隔的路径：
+<!-- <script>
+  export default {
+    watch: {
+      // 注意：只能是简单的路径，不支持表达式。
+      'some.nested.key'(newValue) {
+        // ...
+      }
+    }
+  }
+</script> -->
+
+1.深层侦听器：
+watch 默认是浅层的：被侦听的属性，仅在被赋新值时，才会触发回调函数——而嵌套属性的变化不会触发。如果想侦听所有嵌套的变更，你需要深层侦听器：
+deep: true
+<!-- <script>
+  export default {
+    watch: {
+      someObject: {
+        handler(newValue, oldValue) {
+          // 注意：在嵌套的变更中，
+          // 只要没有替换对象本身，
+          // 那么这里的 `newValue` 和 `oldValue` 相同
+        },
+        deep: true
+      }
+    }
+  }
+</script> -->
+
+2.即时回调的侦听器:即在创建侦听器时立即执行一次
+immediate: true
+<!-- <script>
+  export default {
+    // ...
+    watch: {
+      question: {
+        handler(newQuestion) {
+          // 在组件实例创建时会立即调用
+        },
+        // 强制立即执行回调
+        immediate: true
+      }
+    }
+    // ...
+  }
+</script> -->
+
+
+3.一次性侦听器:字面意思
+once: true
+
+4.副作用清理:当上一个请求完成时，它仍会使用已经过时的 ID 值触发回调。理想情况下，我们希望能够在 id 变为新值时取消过时的请求。
+我们可以使用 onWatcherCleanup() API 来注册一个清理函数，当侦听器失效并准备重新运行时会被调用：
+<!-- <script>
+  import { onWatcherCleanup } from 'vue'
+
+  export default {
+    watch: {
+      id(newId) {
+        const controller = new AbortController()
+
+        fetch(`/api/${newId}`, { signal: controller.signal }).then(() => {
+          // 回调逻辑
+        })
+
+        onWatcherCleanup(() => {
+          // 终止过期请求
+          controller.abort()
+        })
+      }
+    }
+  }
+</script> -->
+作为替代，onCleanup 函数还作为第三个参数传递给侦听器回调：
+<!-- export default {
+  watch: {
+    id(newId, oldId, onCleanup) {
+      // ...
+      onCleanup(() => {
+        // 清理逻辑
+      })
+    }
+  }
+} -->
+
+5.post watcher
+如果想在侦听器回调中能访问被 Vue 更新之后的所属组件的 DOM，你需要指明 flush: 'post'
+<!-- export default {
+  // ...
+  watch: {
+    key: {
+      handler() {},
+      flush: 'post'
+    }
+  }
+} -->
+
+6.同步侦听器
+你还可以创建一个同步触发的侦听器，它会在 Vue 进行任何更新之前触发：
+<!-- export default {
+  // ...
+  watch: {
+    key: {
+      handler() {},
+      flush: 'sync'
+    }
+  }
+} -->
+
+7.停止侦听器
+用 watch 选项或者 $watch() 实例方法声明的侦听器，会在宿主组件卸载时自动停止。
+在少数情况下，你的确需要在组件卸载之前就停止一个侦听器，这时可以调用 $watch() API 返回的函数：
+<!-- const unwatch = this.$watch('foo', callback)
+
+// ...当该侦听器不再需要时
+unwatch() -->
+
+
+
+
 完整示例：侦听ID变化抓取信息
 <script type="module">
   import { createApp } from 'vue'
