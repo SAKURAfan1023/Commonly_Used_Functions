@@ -1,4 +1,23 @@
-生命周期钩子——它允许我们注册一个在组件的特定生命周期调用的回调函数。还有一些其他的钩子如 created 和 updated。
+1.模板引用ref：
+ref 是一个特殊的 attribute，和 v-for 章节中提到的 key 类似。它允许我们在一个特定的 DOM 元素或子组件实例被挂载后，获得对它的直接引用。这可能很有用，比如说在组件挂载时将焦点设置到一个 input
+元素上，或在一个元素上初始化一个第三方库。
+挂载结束后引用都会被暴露在 this.$refs 之上：
+<script>
+  export default {
+    mounted() {
+      this.$refs.input.focus()
+    }
+  }
+</script>
+
+<template>
+  <input ref="input" />
+</template>
+注意，你只可以在组件挂载后才能访问模板引用。如果你想在模板中的表达式上访问 $refs.input，在初次渲染时会是 undefined。这是因为在初次渲染前这个元素还不存在呢！
+
+
+
+2.生命周期钩子——它允许我们注册一个在组件的特定生命周期调用的回调函数。还有一些其他的钩子如 created 和 updated。
 <script>
   createApp({
     mounted() {
@@ -9,6 +28,38 @@
 
 <p ref="pElementRef">hello</p>
 此元素将作为 this.$refs.pElementRef 暴露在 this.$refs 上。然而，你只能在组件挂载之后访问它。
+
+
+3.当在 v-for 中使用模板引用时，相应的引用中包含的值是一个数组：
+<script type="">
+  export default {
+    data() {
+      return {
+        list: [
+          /* ... */
+        ]
+      }
+    },
+    mounted() {
+      console.log(this.$refs.items)
+    }
+  }
+</script>
+
+<template>
+  <ul>
+    <li v-for="item in list" ref="items">
+      {{ item }}
+    </li>
+  </ul>
+</template>
+
+
+
+
+
+
+
 
 完整示例：
 <script type="module">
